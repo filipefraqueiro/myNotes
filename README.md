@@ -2673,6 +2673,7 @@ docker logs CONTAINER_NAME > docker.log 2> docker.err
 
 # AWS
 
+``bash
 aws configure --profile PROFILENAME
 
 **profiles are stored in /home/HOME_DIR/.aws**
