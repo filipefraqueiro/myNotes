@@ -1902,16 +1902,18 @@ stty raw -echo; fg
 
 ### OAUTH
 
-https://www.rfc-editor.org/rfc/rfc6749
+<https://www.rfc-editor.org/rfc/rfc6749>
 
 request for the oauth consent:
-method: GET
-path: /oauth/authorize
-data:
+- method: GET
+- path: /oauth/authorize
+- data:
+```
 response_type=[code or token]
 redirect_uri
 scope
 client_id
+```
 example request:
 http://vulnerable_oauth_server.com/oaut/authorize?response_type=code&redirect_uri=http://attacker/callbacscope=view_gallery&client_id=photoprint",
 the redirect to the attacker page is:
@@ -1946,8 +1948,8 @@ Tools:
 <https://jwt.io/>
 
 Burp Extension:
-JWT Editor
-JSON Web Token
+- JWT Editor
+- JSON Web Token
 
 HEADER.PAYLOAD.SIGNATURE
 
@@ -2250,7 +2252,7 @@ gradle init
 
 [AWS API](./programming/python/aws_api.py)
 
-[weather API](./programming/python/weather_api.py)
+[weather API](./programming/python/api_weather.py)
 
 [docker](./programming/python/test_docker.py)
 
