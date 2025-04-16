@@ -2673,36 +2673,44 @@ docker logs CONTAINER_NAME > docker.log 2> docker.err
 
 # AWS
 
-``bash
+```bash
 aws configure --profile PROFILENAME
+```
 
 **profiles are stored in /home/HOME_DIR/.aws**
 
+```bash
 aws s3 ls BUCKET --no-sign-request
-
 aws s3 cp BUCKET --no-sign-request
+```
 
 **Finding the Account ID belonging to an access key:**
 
+```bash
 aws sts get-access-key-info --access-key-id ACCESS_KEY_ID
+```
 
 **Determining the Username the access key you're using belongs to:**
 
+```bash
 aws sts get-caller-identity --profile PROFILENAME
+```
 
 **Listing all the EC2 instances running in an account:**
 
+```bash
 aws ec2 describe-instances --output text --profile PROFILENAME
+```
 
 **Listing all the EC2 instances running in an account in a different region:**
 
+```bash
 aws ec2 describe-instances --output text --region us-east-1 --profile PROFILENAME
-
 aws secretsmanager list-secrets --profile PROFILENAME
-
 aws secretsmanager get-secret-value --secret-id SECRET_ID --profile PROFILENAME
+```
 
-[AWS API RAW requests using python](programming/python/aws_api.py)
+[AWS API RAW requests using python](programming/python/api_aws.py)
 
 # Arduino
 
