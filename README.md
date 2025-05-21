@@ -210,6 +210,7 @@
     - [2.4GHz](#24ghz)
     - [WiFi](#wifi-1)
     - [Bluetooth](#bluetooth)
+      - [Tools](#tools-5)
     - [Bluetooth LE (Low Energy)](#bluetooth-le-low-energy)
     - [ANT+](#ant)
     - [Mobile Networks](#mobile-networks)
@@ -2716,32 +2717,26 @@ aws secretsmanager get-secret-value --secret-id SECRET_ID --profile PROFILENAME
 
 ## CLI
 
+Install arduino-cli:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 ```
 
+```bash
 arduino-cli config init
-
 arduino-cli sketch new blink
-
 arduino-cli board list
-
-add estra boards to>
+add extra boards to:
 nano ~/.arduino15/arduino-cli.yaml
-
 arduino-cli core update-index
-
 arduino-cli core search esp8266
-
 arduino-cli board listall
-
 arduino-cli compile --fqbn FQBN SKETCH
-
 arduino-cli upload -p PORT --fqbn FQBN SKETCH
-
 arduino-cli lib search LIBRARY
-
 arduino-cli lib install LIBRARY
+```
 
 ## ESP8266 NODEMCU Pinout
 
@@ -2808,7 +2803,9 @@ Then go to Tools->Board->Boards Manager... and search for the desired board to i
 
 ## avrdude
 
+```bash
 avrdude -P PORT -b BAUNDRATE -c PROGRAMMER -p PARTNO -U MEMTYPE:r|w|v:FILENAME
+```
 
 r|w|v - means read, write and verify (choose one)
 
@@ -2817,24 +2814,29 @@ memories types:
 flash, eeprom, hfuse (high fuse), lfuse (low fuse), or efuse (extended fuse)
 
 to list available programmers:
-
+```bash
 avrdude -c bananas
+```
 
 to list available partnos:
-
+```bash
 avrdude -p bananas
+```
 
 example read eeprom from arduino ATMega328P:
-
+```bash
 avrdude -c arduino -p m328p -P /dev/ttyUSB0 -U eeprom:r:test.hex
+```
 
 ## esptool
 
 <https://docs.espressif.com/projects/esptool/en/latest/esp32/index.html>
 
+```bash
 pip install esptool
 
 esptool.py -p PORT -b BAUNDRATE --chip CHIP ACTION [MEMORY_LOCATION] FILENAME
+```
 
 default chip type can be specified by setting the ESPTOOL_CHIP environment variable
 
@@ -2843,29 +2845,37 @@ If no -c option or ESPTOOL_CHIP value is specified, esptool.py
 action can be: write_flash, read_flash ...
 
 example write flash to esp32:
-
+```bash
 esptool.py -p /dev/ttyUSB0 write_flash 0x1000 my_app-0x01000.bin
+```
 
 example read flash from esp32:
-
+```bash
 esptool.py -p PORT -b 1500000 read_flash 0 0x200000 flash_contents.bin
+```
 
 ## MicroPython
 
 [MicroPython](https://micropython.org/)
 
+```bash
 pip install esptool adafruit-ampy pyserial
+```
 
 Connect UART to esp32 and start terminal console
-
+```bash
 miniterm.py /dev/ttyUSB0 115200 --dtr 0
+```
 
 Install dependencies on esp32 by running following on console
 
+```python
 import upip
+
 upip.install('picoweb')  # tested with 1.5.2
 upip.install('micropython-ulogging')
 upip.install('ujson')
+```
 
 # RaspberryPi
 
@@ -3280,7 +3290,6 @@ modeslive --source rtlsdr
 
 5 Bytes Pipes Addresses
 
-
 NRF24L01
 
 For RasberryPi:
@@ -3300,15 +3309,68 @@ Channels:
 frequencies:
 2.4 GHz
 
+GATT - Generic Attribute profile:
+
+- Profile
+  - Services - collection of data
+    - Characteristics - data points
+      - Descriptors
+
+Characteristics Properties can be:
+  - Read
+  - Write
+  - Notified
+  - Indicated (similar to notified but but the client need to acknowledge them)
+
+
 <https://www.bluetooth.com/>
+
 <https://btprodspecificationrefs.blob.core.windows.net/assigned-numbers/Assigned%20Number%20Types/Assigned%20Numbers.pdf>
 
-Advertise Apple Products
-https://github.com/ronaldstoner/AppleJuice-ESP32/blob/main/app.py
+Advertise Apple Products:
+
+<https://github.com/ronaldstoner/AppleJuice-ESP32/blob/main/app.py>
 
 Apps:
-https://www.nordicsemi.com/Products/Development-tools/nrf-connect-for-desktop
-https://play.google.com/store/apps/details?id=no.nordicsemi.android.mcp&hl=pt_PT
+
+<https://www.nordicsemi.com/Products/Development-tools/nrf-connect-for-desktop>
+
+<https://play.google.com/store/apps/details?id=no.nordicsemi.android.mcp&hl=pt_PT>
+
+
+
+#### Tools
+
+```bash
+hcitool scan
+hcitool info <bdaddr>
+```
+
+```bash
+bluetoothctl
+bluetoothctl scan
+bluetoothctl pair <bdaddr>
+```
+
+```bash
+bettercap
+ble.on
+```
+
+To sniff:
+```bash
+ubertooth-btle -f -c capture.pcap
+
+wireshark capture.pcap
+```
+
+Pin Crack:
+
+<https://github.com/mikeryan/crackle>
+
+```bash
+crackle -i capture.pcap
+```
 
 ### Bluetooth LE (Low Energy)
 
